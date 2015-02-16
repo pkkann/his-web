@@ -1,0 +1,23 @@
+<div id="deleteresidentmodal" class="modal fade" ng-controller="DeleteResidentController as drCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close" ng-disabled="working"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-trash"></span> Slet beboer</h4>
+            </div>
+
+            <div class="modal-body">
+            	Er du sikker på du vil slette beboeren <b>{{resident.name}}</b>
+            </div>
+
+            <div class="modal-footer">
+                <form name="form" ng-submit="delete()" novalidate>
+                	<button iden="deleteButton" type="submit" class="btn btn-danger ladda-button" data-style="zoom-out" data-spinner-size="32"><span class="ladda-label">Slet</span></button>
+                	<button class="btn btn-default" data-dismiss="modal" ng-disabled="working">Annuller</button>
+                </form>
+            </div>
+
+		</div>
+	</div>
+</div>

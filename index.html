@@ -1,0 +1,108 @@
+<html ng-app="app">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Hønens Indskrivnings System</title>
+		<link rel="shortcut icon" href="resources/logo.ico">
+
+		<!-- Tools -->
+		<script type="text/javascript" src="asyncParForEach.js"></script>
+
+		<!-- Libraries -->
+		<script type="text/javascript" src="libraries/jquery/jquery.js" ></script>
+		<script type="text/javascript" src="libraries/angularjs/angular.js"></script>
+		<script type="text/javascript" src="libraries/bootstrap/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="libraries/bootstrap/bootstrap.css">
+		<script type="text/javascript" src="libraries/stateProvider/angular-ui-router.js"></script>
+		<script type="text/javascript" src="libraries/fuelux/fuelux.js"></script>
+		<link rel="stylesheet" type="text/css" href="libraries/fuelux/fuelux.css">
+		<script type="text/javascript" src="libraries/toast/simply-toast.js"></script>
+		<link rel="stylesheet" type="text/css" href="libraries/toast/simply-toast.css">
+		<script type="text/javascript" src="libraries/angular-cookies/angular-cookies.js"></script>
+		<script type="text/javascript" src="libraries/spinner/spin.js"></script>
+		<script type="text/javascript" src="libraries/ladda/spin.js"></script>
+		<script type="text/javascript" src="libraries/spinner/angular-spinner.js"></script>
+		<link rel="stylesheet" href="libraries/ladda/ladda-themeless.css">
+		<script type="text/javascript" src="libraries/ladda/ladda.js"></script>
+		<link rel="stylesheet" type="text/css" href="libraries/switch/bootstrap-switch.css">
+		<script type="text/javascript" src="libraries/switch/bootstrap-switch.js"></script>
+		<script type="text/javascript" src="libraries/switch/angular-bootstrap-switch.js"></script>
+		<script type="text/javascript" src="libraries/ui-bootstrap/ui-bootstrap.js"></script>
+		<script type="text/javascript" src="libraries/ngAnimate/angular-animate.min.js"></script>
+
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/theme.css">
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+
+		<link rel="stylesheet" type="text/css" href="css/modalHeaders.css">
+		<!--<link rel="stylesheet" type="text/css" href="css/animate.css">-->
+
+
+		<!-- Application -->
+		<script type="text/javascript" src="app/app.js"></script>
+			<!-- Misc -->
+			<script type="text/javascript" src="app/misc/routes.js"></script>
+			<script type="text/javascript" src="app/misc/toast.js"></script>
+			<!-- Services -->
+			<script type="text/javascript" src="app/services/residentService.js"></script>
+			<script type="text/javascript" src="app/services/dateService.js"></script>
+			<script type="text/javascript" src="app/services/sessionService.js"></script>
+			<script type="text/javascript" src="app/services/userService.js"></script>
+			<script type="text/javascript" src="app/services/messageService.js"></script>
+			<script type="text/javascript" src="app/services/shiftService.js"></script>
+			<script type="text/javascript" src="app/services/generatorService.js"></script>
+			<script type="text/javascript" src="app/services/guestService.js"></script>
+			<script type="text/javascript" src="app/services/timerService.js"></script>
+			<!-- Configs -->
+			<script type="text/javascript" src="app/configs/routeProvider.js"></script>
+			<script type="text/javascript" src="app/configs/cookieLoader.js"></script>
+			<!-- Filters -->
+			<script type="text/javascript" src="app/filters/trueFalseFilter.js"></script>
+			<script type="text/javascript" src="app/filters/sliceFilter.js"></script>
+			<!-- Directives -->
+			<script type="text/javascript" src="app/directives/siteHeaderDirective.js"></script>
+			<script type="text/javascript" src="app/directives/siteFooterDirective.js"></script>
+			<script type="text/javascript" src="app/directives/createResidentModal.js"></script>
+			<script type="text/javascript" src="app/directives/changePasswordModal.js"></script>
+			<script type="text/javascript" src="app/directives/createUserModal.js"></script>
+			<script type="text/javascript" src="app/directives/createShiftModal.js"></script>
+			<!-- Controllers -->
+			<script type="text/javascript" src="app/controllers/residentsController.js"></script>
+			<script type="text/javascript" src="app/controllers/createResidentController.js"></script>
+			<script type="text/javascript" src="app/controllers/loginController.js"></script>
+			<script type="text/javascript" src="app/controllers/templateController.js"></script>
+			<script type="text/javascript" src="app/controllers/profileController.js"></script>
+			<script type="text/javascript" src="app/controllers/changePasswordController.js"></script>
+			<script type="text/javascript" src="app/controllers/usersController.js"></script>
+			<script type="text/javascript" src="app/controllers/createUserController.js"></script>
+			<script type="text/javascript" src="app/controllers/deleteUserController.js"></script>
+			<script type="text/javascript" src="app/controllers/dashboardController.js"></script>
+			<script type="text/javascript" src="app/controllers/deleteResidentController.js"></script>
+			<script type="text/javascript" src="app/controllers/shiftsController.js"></script>
+			<script type="text/javascript" src="app/controllers/shiftMenuController.js"></script>
+			<script type="text/javascript" src="app/controllers/closeShiftController.js"></script>
+			<script type="text/javascript" src="app/controllers/createShiftController.js"></script>
+			<script type="text/javascript" src="app/controllers/infoResidentController.js"></script>
+			<script type="text/javascript" src="app/controllers/editResidentController.js"></script>
+			<script type="text/javascript" src="app/controllers/editUserController.js"></script>
+			<script type="text/javascript" src="app/controllers/editShiftController.js"></script>
+			<script type="text/javascript" src="app/controllers/reopenShiftController.js"></script>
+			<script type="text/javascript" src="app/controllers/setResidentQuarantineController.js"></script>
+			<script type="text/javascript" src="app/controllers/guestsController.js"></script>
+			<script type="text/javascript" src="app/controllers/createGuestController.js"></script>
+			<script type="text/javascript" src="app/controllers/lockscreenController.js"></script>
+			<script type="text/javascript" src="app/controllers/mainController.js"></script>
+			<script type="text/javascript" src="app/controllers/deleteGuestController.js"></script>
+			<script type="text/javascript" src="app/controllers/editGuestController.js"></script>
+			<script type="text/javascript" src="app/controllers/infoGuestController.js"></script>
+			<script type="text/javascript" src="app/controllers/setGuestQuarantineController.js"></script>
+			<script type="text/javascript" src="app/controllers/setGuestEnrollmentController.js"></script>
+
+	</head>
+	<body ng-controller="MainController as mainCtrl" ng-class="{'lockscreen' : isState('lockscreen')}">
+		<div class="container" ng-init="init()" ng-mousedown="resetTimer()" ng-keyup="resetTimer()">
+			<site-header></site-header>
+			<div ui-view></div>
+			<site-footer></site-footer>
+		</div>
+	</body>
+</html>

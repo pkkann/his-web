@@ -1,0 +1,47 @@
+/* Have to set height explicity on ui-view 
+to prevent collapsing during animation*/
+.well[ui-view]{
+    height: 65px; 
+}
+
+.ui-view-container {
+    position: relative;
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+    opacity: 0;
+    -webkit-transform: opacity .25s;
+    -moz-transform: opacity .25s;
+    transform: opacity .25s;
+}
+
+[ui-view].ng-enter-active {
+    opacity: 1;
+    -webkit-transform: opacity .25s;
+    -moz-transform: opacity .25s;
+    transform: opacity .25s;
+}
+
+[ui-view].ng-leave {
+    opacity: 1; 
+    -webkit-transform: opacity .25s;
+    -moz-transform: opacity .25s;
+    transform: opacity .25s;
+}
+
+[ui-view].ng-leave-active {
+    opacity: 0;
+    -webkit-transform: opacity .25s;
+    -moz-transform: opacity .25s;
+    transform: opacity .25s;
+}

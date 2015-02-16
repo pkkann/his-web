@@ -1,0 +1,55 @@
+<div class="container jelly-form">
+
+	<form name="form" class="form-horizontal" novalidate>
+
+		<fieldset>
+
+			<legend>Personlige oplysninger</legend>
+
+			<div class="form-group">
+                <label class="col-lg-3 control-label">Navn *</label>
+                <div class="col-lg-6">
+                    <input name="inputName" type="text" class="form-control" ng-model="user.name" ng-disabled="saving" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">E-mail</label>
+                <div class="col-lg-6">
+                    <input name="inputEmail" type="email" class="form-control" ng-model="user.email" ng-disabled="saving">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Telefon</label>
+                <div class="col-lg-6">
+                    <input name="inputPhone" type="text" class="form-control" ng-model="user.phone" ng-disabled="saving">
+                </div>
+            </div>
+
+            <legend>Bruger oplysninger</legend>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Brugernavn *</label>
+                <div class="col-lg-6">
+                    <input name="inputUsername" type="text" class="form-control" ng-model="user.username" disabled></span>
+                </div>
+            </div>
+
+            <legend></legend>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"></label>
+                <div class="col-lg-6">
+                    <a id="saveButton" href class="btn btn-primary ladda-button" data-style="zoom-out" ng-click="save()" ng-disabled="!changed()"><span class="ladda-label"><span class="glyphicon glyphicon-floppy-disk"></span> Gem</span></a>
+                    <a class="btn btn-warning" ng-click="changePassword.setUser(user); changePassword.setLoadMethod(reload); changePassword.setAdmin(false)" data-toggle="modal" data-target="#changepasswordmodal" ng-disabled="saving"><span class="glyphicon glyphicon-lock"></span> Skift adgangskode</a>
+                </div>
+            </div>
+
+		</fieldset>
+
+	</form>
+
+</div>
+
+<span ng-include="'views/modals/changepasswordmodal.html'"></span>

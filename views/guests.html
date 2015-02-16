@@ -1,0 +1,60 @@
+<div class="container-fluid">
+	<div class="panel panel-default">
+		
+		<div class="panel-heading">
+			<div class="navbar-form">
+				<a class="btn btn-default" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#createguestmodal" ng-click="createGuest.setLoadMethod(load)"><span class="glyphicon glyphicon-file"></span> Ny</a>
+				<input ng-model="searchText" size="40" class="form-control" type="text" placeholder="Søg">
+				<div class="pull-right">
+					<label class="control-label"><h5>Total: {{guests.length}}</h5></label>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Navn</th>
+						<th>Fødselsdag</th>
+						<th>Oprettet</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="guest in guests | filter: searchText | orderBy: predicate:reverse" ng-class="{'success' : getEnrollMode(guest)==1}">
+						<td>{{guest.name}}</td>
+						<td>{{guest.birthday}}</td>
+						<td>{{guest.createdate}}</td>
+						<td style="text-align: right">
+							<div class="btn-group">
+								<button ng-attr-title="{{getEnrollTitle(guest)}}" class="btn btn-sm" ng-class="{'btn-primary' : getEnrollMode(guest)==0, 'btn-success' : getEnrollMode(guest)==1}" data-toggle="modal" data-target="#setguestenrollmentmodal" ng-show="anyOpen && onShift" ng-disabled="getQuarantineMode(guest) == 1" ng-click="guestEnrollment.setGuest(guest); guestEnrollment.setLoadMethod(load)"><span class="glyphicon" ng-class="{'glyphicon-ok-circle' : getEnrollMode(guest)==0, 'glyphicon glyphicon-ok' : getEnrollMode(guest)==1}"></span></button>
+								<button title="Ydereligere information" ng-click="infoGuest.setGuest(guest)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#infoguestmodal"><span class="glyphicon glyphicon-info-sign"></span></button>
+								<button title="Rediger" ng-click="editGuest.setGuest(guest); editGuest.setLoadMethod(load)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editguestmodal"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button title="Slet" ng-click="deleteGuest.setGuest(guest); deleteGuest.setLoadMethod(load)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteguestmodal" ng-disabled="getEnrollMode(guest)==1 || getQuarantineMode(guest)==1"><span class="glyphicon glyphicon-trash"></span></button>
+								<button ng-attr-title="{{getQuarantineTitle(guest)}}" class="btn btn-sm" ng-class="{'btn-danger' : getQuarantineMode(guest) == 0, 'btn-warning' : getQuarantineMode(guest) == 1}" ng-click="guestQuarantine.setGuest(guest); guestQuarantine.setLoadMethod(load)" data-toggle="modal" data-target="#setguestquarantinemodal" ng-show="isAdmin"><span class="glyphicon glyphicon-ban-circle"></span></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<span ng-show="working">
+				<center>
+				    <label class="control-label"><h3>Henter...</h3></label>
+				    <div class="progress" style="width: 300px">
+				      <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				      </div>
+				    </div>
+				</center>
+			</span>
+			<p><center ng-show="guests.length < 1 && !working"><h3>Der er ingen gæster</h3></center></p>
+		</div>
+	</div>
+</div>
+
+<span ng-include="'views/modals/createGuestModal.html'"></span>
+<span ng-include="'views/modals/deleteGuestModal.html'"></span>
+<span ng-include="'views/modals/editGuestModal.html'"></span>
+<span ng-include="'views/modals/infoGuestModal.html'"></span>
+<span ng-include="'views/modals/setGuestQuarantineModal.html'"></span>
+<span ng-include="'views/modals/setGuestEnrollmentModal.html'"></span>

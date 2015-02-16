@@ -1,0 +1,65 @@
+<div class="container-fluid">
+	<div class="panel panel-default">
+		
+		<div class="panel-heading">
+			<div class="navbar-form">
+				<input ng-model="searchText" size="40" class="form-control" type="text" placeholder="Søg">
+				<div class="pull-right">
+					<label class="control-label"><h5>Total: {{shifts.length}}</h5></label>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Oprettet</th>
+						<th>Afsluttet</th>
+						<th>Antal indskrevne</th>
+						<th>På vagten</th>
+						<th>Bar ansvarlig</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-class="{'warning' : isOpen(shift)}" ng-repeat="shift in shifts | filter: searchText | orderBy:predicate:reverse">
+						<td>{{shift.id_shift}}</td>
+						<td>{{shift.createdate}}</td>
+						<td>{{closedateConvert(shift.closedate)}}</td>
+						<td>
+							<button class="btn btn-default btn-sm" popover-trigger="mouseenter" popover="{{shift.enrollmentsString}}"><span class="glyphicon glyphicon-eye-open"></span></button>
+						</td>
+						<td>
+							<button class="btn btn-default btn-sm" popover-trigger="mouseenter" popover="{{shift.usersString}}"><span class="glyphicon glyphicon-eye-open"></span></button>
+						</td>
+						<td>{{shift.leader.name}}</td>
+						<td style="text-align: right">
+							<div class="btn-group">
+								<button title="Rediger vagt" class="btn btn-warning btn-sm" ng-click="editShift.setShift(shift); editShift.setLoadMethod(loadShifts)" data-toggle="modal" data-target="#editshiftmodal" ng-hide="!isOpen(shift)"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button title="Afslut vagt" class="btn btn-danger btn-sm" ng-click="closeShift.setShift(shift); closeShift.setLoadMethod(loadShifts)" data-toggle="modal" data-target="#closeshiftmodal" ng-hide="!isOpen(shift)"><span class="glyphicon glyphicon-check"></span></button>
+							</div>
+							<button title="Genåben vagt" class="btn btn-warning btn-sm" ng-click="reopenShift.setShift(shift); reopenShift.setLoadMethod(loadShifts)" data-toggle="modal" data-target="#reopenshiftmodal" ng-show="!anyOpen"><span class="glyphicon glyphicon-new-window"></span></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<span ng-show="working">
+				<center>
+				    <label class="control-label"><h3>Henter...</h3></label>
+				    <div class="progress" style="width: 300px">
+				      <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				      </div>
+				    </div>
+				</center>
+			</span>
+			<p><center ng-show="shifts.length < 1 && !working"><h3>Der er ingen vagter</h3></center></p>
+		</div>
+
+	</div>
+</div>
+
+<span ng-include="'views/modals/reopenShiftModal.html'"></span>
+<span ng-include="'views/modals/editShiftModal.html'"></span>
+<span ng-include="'views/modals/closeShiftModal.html'"></span>
+<createusermodal data-ng-create-extra-action="load()" users="users"></createusermodal>

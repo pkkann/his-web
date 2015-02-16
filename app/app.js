@@ -1,0 +1,1 @@
+angular.module('app', ['ui.router', 'ngCookies', 'angularSpinner', 'frapontillo.bootstrap-switch', 'ui.bootstrap', 'ngAnimate']);

@@ -1,0 +1,109 @@
+<div id="editresidentmodal" class="modal fade" ng-controller="EditResidentController as erCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+            <form name="form" class="form-horizontal" novalidate>
+
+    			<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close" ng-disabled="working"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"></span> Rediger beboer</h4>
+                </div>
+
+                <div class="modal-body">
+                	
+                    <accordion close-others="true">
+
+                        <accordion-group heading="Medlemskab" is-open="groupOpen[0]" is-disabled="working">
+                            
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label"></label>
+                                <div class="col-lg-9">
+                                    <div class="btn-group">
+                                        <label class="btn btn-primary" ng-model="resident.hoene" btn-checkbox>Høne</label>
+                                        <label class="btn btn-primary" ng-model="resident.reserve" btn-checkbox>Reserve</label>
+                                        <label class="btn btn-primary" ng-model="resident.oneone" btn-checkbox>1-1</label>
+                                        <label class="btn btn-primary" ng-model="resident.fromoutside" btn-checkbox>Udefra morbærhaven</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </accordion-group>
+
+                        <accordion-group heading="Beboerkort" is-open="groupOpen[1]" is-disabled="working">
+                        
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Barkode <span style="color: red" ng-hide="resident.fromoutside">*</span></label>
+                                <div class="col-lg-9" ng-class="{'has-error' : form.inputBarcode.$invalid && form.inputBarcode.$dirty}">
+                                    <input name="inputBarcode" type="text" ng-disabled="resident.fromoutside || resident.hoene || working" class="form-control" ng-model="resident.barcode" placeholder="" ng-required="!resident.fromoutside  && !resident.hoene">
+                                </div>
+                            </div>
+
+                        </accordion-group>
+
+                        <accordion-group heading="Beboer info" is-open="groupOpen[2]" is-disabled="working">
+                        
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Navn <span style="color: red">*</span></label>
+                                <div class="col-lg-9" ng-class="{'has-error' : form.inputName.$invalid && form.inputName.$dirty}">
+                                    <input name="inputName" type="text" class="form-control" ng-model="resident.name" placeholder="Fulde navn" ng-disabled="working" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Adresse <span style="color: red">*</span></label>
+                                <div class="col-lg-3" ng-class="{'has-error' : form.inputBlock.$invalid && form.inputBlock.$dirty}" ng-hide="resident.fromoutside">
+                                    <input name="inputBlock" type="text" class="form-control" ng-model="resident.block" placeholder="Block" ng-required="!resident.fromoutside" ng-disabled="working">
+                                </div>
+                                <div class="col-lg-3" ng-class="{'has-error' : form.inputNumber.$invalid && form.inputNumber.$dirty}" ng-hide="resident.fromoutside">
+                                    <input name="inputNumber" type="text" class="form-control" ng-model="resident.number" placeholder="Nr" ng-required="!resident.fromoutside" ng-disabled="working">
+                                </div>
+                                <div class="col-lg-6" ng-class="{'has-error' : form.inputAddress.$invalid && form.inputAddress.$dirty}" ng-show="resident.fromoutside">
+                                    <input name="inputAddress" type="text" class="form-control" ng-model="resident.address" placeholder="Postnummer, By, Adresse" ng-required="resident.fromoutside" ng-disabled="working">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Fødselsdag <span style="color: red">*</span></label>
+                                <div class="col-sm-3" ng-class="{'has-error' : form.inputBirthDate.$invalid && form.inputBirthDate.$dirty}">
+                                    <input name="inputBirthDate" type="number" class="form-control" ng-model="resident.birthDate" placeholder="D" ng-disabled="working" required>
+                                </div>
+                                <div class="col-sm-3" ng-class="{'has-error' : form.inputBirthMonth.$invalid && form.inputBirthMonth.$dirty}">
+                                    <input name="inputBirthMonth" type="number" class="form-control" ng-model="resident.birthMonth" placeholder="M" ng-disabled="working" required>
+                                </div>
+                                <div class="col-sm-3" ng-class="{'has-error' : form.inputBirthYear.$invalid && form.inputBirthYear.$dirty}">
+                                    <input name="inputBirthYear" type="number" class="form-control" ng-model="resident.birthYear" placeholder="Å" ng-disabled="working" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Telefon</label>
+                                <div class="col-lg-6" ng-class="{'has-error' : form.inputPhone.$invalid}">
+                                    <input name="inputPhone" type="text" class="form-control" ng-model="resident.phone" ng-disabled="working">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">E-mail</label>
+                                <div class="col-lg-6" ng-class="{'has-error' : form.inputEmail.$invalid}">
+                                    <input name="inputEmail" type="email" class="form-control" ng-model="resident.email" ng-disabled="working">
+                                </div>
+                            </div>
+
+                        </accordion-group>
+
+                    </accordion>
+
+                </div>
+
+                <div class="modal-footer">
+                    
+                        <button iden="saveButton" type="button" ng-click="save()" class="btn btn-warning ladda-button" data-style="zoom-out" data-spinner-size="32"><span class="ladda-label">Gem</span></button>
+                        <button type="button" ng-click="reset()" class="btn btn-default" data-dismiss="modal" ng-disabled="working">Annuller</button>
+                    
+                </div>
+
+            </form>
+
+		</div>
+	</div>
+</div>

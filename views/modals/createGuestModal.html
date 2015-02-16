@@ -1,0 +1,55 @@
+<div id="createguestmodal" class="modal fade" ng-controller="CreateGuestController as cgCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form name="form" ng-submit="create()" class="form-horizontal" novalidate>
+
+				<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-file"></span> Ny gæst</h4>
+                </div>
+
+                <div class="modal-body">
+
+                	<div class="form-group">
+                        <label class="col-lg-3 control-label">Navn<span style="color: red">*</span></label>
+                        <div class="col-lg-9" ng-class="{'has-error' : form.inputName.$invalid && form.inputName.$dirty}">
+                            <input name="inputName" type="text" class="form-control" ng-model="guest.name" placeholder="Fulde navn" ng-disabled="working" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Adresse<span style="color: red">*</span></label>
+                        <div class="col-lg-9" ng-class="{'has-error' : form.inputAddress.$invalid && form.inputAddress.$dirty}">
+                            <input name="inputAddress" type="text" class="form-control" placeholder="Fulde adresse" ng-model="guest.address" ng-disabled="working" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Fødselsdag<span style="color: red">*</span></label>
+                        <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthDate.$invalid && form.inputBirthDate.$dirty}">
+                            <input name="inputBirthDate" type="number" class="form-control" ng-model="guest.birthDate" placeholder="D" ng-disabled="working" required>
+                        </div>
+                        <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthMonth.$invalid && form.inputBirthMonth.$dirty}">
+                            <input name="inputBirthMonth" type="number" class="form-control" ng-model="guest.birthMonth" placeholder="M" ng-disabled="working" required>
+                        </div>
+                        <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthYear.$invalid && form.inputBirthYear.$dirty}">
+                            <input name="inputBirthYear" type="number" class="form-control" ng-model="guest.birthYear" placeholder="Å" ng-disabled="working" required>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="control-label"><span class="label label-success" ng-class="{'label-danger' : getAge() < 18}"><b>Alder:</b> {{getAge()}}</span></label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                	<button iden="createButton" type="submit" class="btn btn-primary ladda-button" data-style="zoom-out" data-spinner-size="32"><span class="ladda-label">Opret</span></button>
+                	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()" ng-disabled="working">Annuller</button>
+                </div>
+
+			</form>
+
+		</div>
+	</div>
+</div>

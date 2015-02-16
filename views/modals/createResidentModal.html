@@ -1,0 +1,161 @@
+<div id="createresidentmodal" class="modal fade fuelux">
+    <div class="modal-dialog modal-dialog-wide">
+        <div class="modal-content">
+
+            <form name="form" ng-submit="create()" class="form-horizontal" novalidate>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-file"></span> Ny beboer</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div id="myWizard" class="wizard">
+
+                        <ul class="steps">
+                            <li data-step="1" class="active"><span class="badge">1</span>Medlemskab<span class="chevron"></span></li>
+                            <li data-step="2" class="active"><span class="badge">2</span>Beboerkort<span class="chevron"></span></li>
+                            <li data-step="3" class="active"><span class="badge">3</span>Beboer info<span class="chevron"></span></li>
+                        </ul>
+
+                        <div class="actions">
+                            <button type="button" class="btn btn-primary btn-prev" ng-disabled="working"><span class="glyphicon glyphicon-arrow-left"></span>Tilbage</button>
+                            <button type="button" class="btn btn-primary btn-next" data-last="Færdig">Næste<span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </div>
+
+                        <div class="step-content">
+                            <div class="step-pane active alert" data-step="1">
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label"></label>
+                                    <div class="col-lg-6">
+                                        <p>Vælg om beboeren er medlem af hønegruppen.</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Medlem</label>
+                                    <div class="col-lg-9">
+                                        <div class="btn-group">
+                                            <label class="btn btn-primary" ng-model="resident.hoene" btn-checkbox>Høne</label>
+                                            <label class="btn btn-primary" ng-model="resident.reserve" btn-checkbox>Reserve</label>
+                                            <label class="btn btn-primary" ng-model="resident.oneone" btn-checkbox>1-1</label>
+                                            <label class="btn btn-primary" ng-model="resident.fromoutside" btn-checkbox>Udefra morbærhaven</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="step-pane active alert" data-step="2">
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label"></label>
+                                    <div class="col-lg-6">
+                                        <p ng-hide="resident.fromoutside || resident.hoene">Indskriv barkoden og udløbsdatoen på beboerkortet.</p>
+                                        <p ng-hide="resident.fromoutside || resident.hoene">Placer markøren i feltet og scan kortet.</p>
+                                        <p style="color: red" ng-show="resident.fromoutside">Dette trin er slået fra, da beboeren kommer udefra morbærhaven</p>
+                                        <p style="color: red" ng-show="resident.hoene">Dette trin er slået fra, da beboeren er høne</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Barkode <span style="color: red" ng-hide="resident.fromoutside">*</span></label>
+                                    <div class="col-lg-9" ng-class="{'has-error' : form.inputBarcode.$invalid && form.inputBarcode.$dirty}">
+                                        <input name="inputBarcode" type="text" ng-disabled="resident.fromoutside || resident.hoene" class="form-control" ng-model="resident.barcode" placeholder="" ng-required="!resident.fromoutside  && !resident.hoene" ng-disabled="working">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="step-pane active alert" data-step="3">
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label"></label>
+                                    <div class="col-lg-6">
+                                        <p>Indskriv beboerens informationer.</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Navn <span style="color: red">*</span></label>
+                                    <div class="col-lg-9" ng-class="{'has-error' : form.inputName.$invalid && form.inputName.$dirty}">
+                                        <input name="inputName" type="text" class="form-control" ng-model="resident.name" placeholder="Fulde navn" ng-disabled="working" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Adresse <span style="color: red">*</span></label>
+                                    <div class="col-lg-3" ng-class="{'has-error' : form.inputBlock.$invalid && form.inputBlock.$dirty}" ng-hide="resident.fromoutside">
+                                        <input name="inputBlock" type="text" class="form-control" ng-model="resident.block" placeholder="Blok" ng-required="!resident.fromoutside" ng-disabled="working">
+                                    </div>
+                                    <div class="col-lg-3" ng-class="{'has-error' : form.inputNumber.$invalid && form.inputNumber.$dirty}" ng-hide="resident.fromoutside">
+                                        <input name="inputNumber" type="text" class="form-control" ng-model="resident.number" placeholder="Nummer" ng-required="!resident.fromoutside" ng-disabled="working">
+                                    </div>
+                                    <div class="col-lg-6" ng-class="{'has-error' : form.inputAddress.$invalid && form.inputAddress.$dirty}" ng-show="resident.fromoutside">
+                                        <input name="inputAddress" type="text" class="form-control" ng-model="resident.address" placeholder="Fulde adresse" ng-required="resident.fromoutside" ng-disabled="working">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Fødselsdag <span style="color: red">*</span></label>
+                                    <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthDate.$invalid && form.inputBirthDate.$dirty}">
+                                        <input name="inputBirthDate" type="number" class="form-control" ng-model="resident.birthDate" placeholder="Dato" ng-disabled="working" required>
+                                    </div>
+                                    <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthMonth.$invalid && form.inputBirthMonth.$dirty}">
+                                        <input name="inputBirthMonth" type="number" class="form-control" ng-model="resident.birthMonth" placeholder="Måned" ng-disabled="working" required>
+                                    </div>
+                                    <div class="col-sm-2" ng-class="{'has-error' : form.inputBirthYear.$invalid && form.inputBirthYear.$dirty}">
+                                        <input name="inputBirthYear" type="number" class="form-control" ng-model="resident.birthYear" placeholder="År" ng-disabled="working" required>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="control-label"><span class="label label-success" ng-class="{'label-danger' : getAge() < 18}"><b>Alder:</b> {{getAge()}}</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Telefon</label>
+                                    <div class="col-lg-6" ng-class="{'has-error' : form.inputPhone.$invalid}">
+                                        <input name="inputPhone" type="text" class="form-control" ng-model="resident.phone" ng-disabled="working">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">E-mail</label>
+                                    <div class="col-lg-6" ng-class="{'has-error' : form.inputEmail.$invalid}">
+                                        <input name="inputEmail" type="email" class="form-control" ng-model="resident.email" ng-disabled="working">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="createresidentloading" class="modal fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-small">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <center>
+                    <label class="control-label"><h4>Opretter beboer...</h4></label>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%">
+                      </div>
+                    </div>
+                </center>
+
+            </div>
+
+        </div>
+    </div>
+</div>

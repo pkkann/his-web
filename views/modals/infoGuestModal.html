@@ -1,0 +1,66 @@
+<div id="infoguestmodal" class="modal fade" ng-controller="InfoGuestController as igCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close" ng-disabled="working"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign"></span> Ydereligere informationer</h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" novalidate>
+
+                    <legend>Personlige informationer</legend>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Navn:</label>
+                        <div class="col-lg-9">
+                             <label class="control-label info-text">{{guest.name}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Adresse:</label>
+                        <div class="col-lg-9">
+                             <label class="control-label info-text">{{guest.address}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Fødelsdag:</label>
+                        <div class="col-lg-9">
+                             <label class="control-label info-text">{{guest.birthday}}</label>
+                        </div>
+                    </div>
+
+                    <span ng-show="guest.quarantine">
+
+                        <legend>Karantæne</legend>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Kommentar:</label>
+                            <div class="col-lg-9">
+                                 <label class="control-label info-text">{{guest.quarantine.comment}}</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Oprettet:</label>
+                            <div class="col-lg-9">
+                                 <label class="control-label info-text">{{guest.quarantine.createdate}}</label>
+                            </div>
+                        </div>
+
+                    </span>
+
+                </form>
+            	
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Luk</button>
+            </div>
+
+		</div>
+	</div>
+</div>

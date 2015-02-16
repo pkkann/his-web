@@ -1,0 +1,36 @@
+<div class="navbar navbar-inverse navbar-fixed-top" ng-show="loggedIn() && !isState('shiftmenu') && !isState('error-admin') && !isState('error-shift') && !isState('error-shiftleader') && !isState('login') && !isState('lockscreen')">
+
+	<div class="container-fluid">
+
+		<div class="navbar-header">
+			<div class="navbar-brand">Hønens Indskrivnings System</div>
+		</div>
+
+		<ul class="nav navbar-nav">
+			<li ui-sref-active="active"><a href ui-sref="dashboard"><span class="glyphicon glyphicon-th-large"></span> Dashboard</a></li>
+			<li ng-class="{'active' : isState('residents') || isState('guests')}" class="dropdown">
+				<a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-check"></span> Indskrivning <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li ui-sref-active="active"><a href ui-sref="residents"><span class="glyphicon glyphicon-user"></span> Beboere</a></li>
+					<li ui-sref-active="active"><a href ui-sref="guests"><span class="glyphicon glyphicon-user"></span> Gæster</a></li>
+				</ul>
+			</li>
+			<li ng-show="loggedInUserIsAdmin()" ng-class="{'active' : isState('users') || isState('shifts')}" class="dropdown">
+				<a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Administration <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li ui-sref-active="active" ng-show="loggedInUserIsAdmin()"><a href ui-sref="users"><span class="glyphicon glyphicon-user"></span> Brugere</a></li>
+					<li ui-sref-active="active" ng-show="loggedInUserIsAdmin()"><a href ui-sref="shifts"><span class="glyphicon glyphicon-calendar"></span> Vagter</a></li>
+				</ul>
+			</li>
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href ng-click="lockScreen()"><span class="glyphicon glyphicon-lock"></span> Lås</a></li>
+			<li ui-sref-active="active"><a href ui-sref="profile"><span class="glyphicon glyphicon-user"></span> {{getLoggedInUser().name}}</a></li>
+			<li><a href ui-sref="shiftmenu"><span class="glyphicon glyphicon-glass"></span> Vagt menu</a></li>
+			<li><a href ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Log ud</a></li>
+		</ul>
+
+	</div>
+
+</div>

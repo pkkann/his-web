@@ -1,0 +1,77 @@
+<div class="container-fluid">
+	<div class="panel panel-default">
+		
+		<div class="panel-heading">
+			<div class="navbar-form">
+				<a class="btn btn-default" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#createresidentmodal"><span class="glyphicon glyphicon-file"></span> Ny</a>
+				<input ng-model="searchText" size="40" class="form-control" type="text" placeholder="Søg">
+				<a class="btn btn-primary" ng-show="anyOpen && onShift"><span class="glyphicon glyphicon-barcode"></span> Lyn indskrivning</a>
+				<div class="pull-right">
+					<label class="control-label" ng-show="onShift"><h5>Total indskrevet: {{shift.enrollments.length}}</h5></label>
+					<label class="control-label" ng-show="onShift">|</label>
+					<label class="control-label"><h5>Total: {{residents.length}}</h5></label>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Navn</th>
+						<th ng-show="ekstra">Adresse</th>
+						<th>Fødselsdag</th>
+						<th ng-show="ekstra">Telefon</th>
+						<th ng-show="ekstra">E-mail</th>
+						<th>Høne</th>
+						<th>Reserve</th>
+						<th>1-1</th>
+						<th>Udefra</th>
+						<th ng-show="ekstra">Oprettet</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="resident in residents | filter: searchText | orderBy: predicate:reverse" ng-class="{'success' : getEnrollMode(resident)==1}">
+						<td>{{resident.name}}</td>
+						<td ng-show="ekstra">{{resident.address}}</td>
+						<td>{{resident.birthday}}</td>
+						<td ng-show="ekstra">{{resident.phone}}</td>
+						<td ng-show="ekstra">{{resident.email}}</td>
+						<td>{{resident.hoene | true_false}}</td>
+						<td>{{resident.reserve | true_false}}</td>
+						<td>{{resident.oneone | true_false}}</td>
+						<td>{{resident.fromoutside | true_false}}</td>
+						<td ng-show="ekstra">{{resident.createdate}}</td>
+						<td style="text-align: right">
+							<div class="btn-group">
+								<button ng-attr-title="{{getEnrollTitle(resident)}}" class="btn btn-sm" ng-class="{'btn-primary' : getEnrollMode(resident)==0, 'btn-success' : getEnrollMode(resident)==1}" ng-show="anyOpen && onShift" ng-disabled="getQuarantineMode(resident) == 1" ng-click="setEnroll(resident)"><span class="glyphicon" ng-class="{'glyphicon-ok-circle' : getEnrollMode(resident)==0, 'glyphicon glyphicon-ok' : getEnrollMode(resident)==1}"></span></button>
+								<button title="Ydereligere information" ng-click="infoResident.setResident(resident)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#inforesidentmodal"><span class="glyphicon glyphicon-info-sign"></span></button>
+								<button title="Rediger" ng-click="editResident.setResident(resident); editResident.setLoadMethod(load)" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editresidentmodal"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button title="Slet" ng-click="deleteResident.setResident(resident); deleteResident.setLoadMethod(load)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteresidentmodal" ng-disabled="getEnrollMode(resident)==1 || getQuarantineMode(resident)==1"><span class="glyphicon glyphicon-trash"></span></button>
+								<button ng-attr-title="{{getQuarantineTitle(resident)}}" class="btn btn-sm" ng-class="{'btn-danger' : getQuarantineMode(resident) == 0, 'btn-warning' : getQuarantineMode(resident) == 1}" ng-click="residentQuarantine.setResident(resident); residentQuarantine.setLoadMethod(load)" data-toggle="modal" data-target="#setresidentquarantinemodal" ng-show="isAdmin"><span class="glyphicon glyphicon-ban-circle"></span></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<span ng-show="working">
+				<center>
+				    <label class="control-label"><h3>Henter...</h3></label>
+				    <div class="progress" style="width: 300px">
+				      <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				      </div>
+				    </div>
+				</center>
+			</span>
+			<p><center ng-show="residents.length < 1 && !working"><h3>Der er ingen beboere</h3></center></p>
+		</div>
+	</div>
+</div>
+
+<span ng-include="'views/modals/workingModal.html'"></span>
+<span ng-include="'views/modals/setResidentQuarantineModal.html'"></span>
+<span ng-include="'views/modals/editResidentModal.html'"></span>
+<span ng-include="'views/modals/infoResidentModal.html'"></span>
+<span ng-include="'views/modals/deleteResidentModal.html'"></span>
+<createresidentmodal data-ng-create-extra-action="load()"></createresidentmodal>

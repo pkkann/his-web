@@ -1,0 +1,47 @@
+<div id="setresidentquarantinemodal" class="modal fade" ng-controller="SetResidentQuarantineController as srqCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form name="form" ng-submit="set()" class="form-horizontal" novalidate>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close" ng-disabled="working"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-ban-circle"></span> <span ng-show="mode == 0">Opret</span><span ng-show="mode == 1">Slet</span> karantæne for beboer</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+                        <div class="col-lg-9">
+                            Er du sikker på du vil <span ng-show="mode == 0">oprette</span><span ng-show="mode == 1">slette</span> karantæne for beboeren <b>{{resident.name}}</b>?
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Kommentar</label>
+                        <div class="col-lg-9">
+                            <input ng-show="mode == 0" name="inputComment" type="text" class="form-control" ng-model="resident.quarantine.comment" placeholder="Kort..." ng-disabled="working">
+                            <label class="control-label info-text" ng-show="mode == 1">{{resident.quarantine.comment}}</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="mode == 1">
+                        <label class="col-lg-3 control-label">Oprettet</label>
+                        <div class="col-lg-9">
+                            <label class="control-label info-text">{{resident.quarantine.createdate}}</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button iden="setButton" type="submit" class="btn ladda-button" ng-class="{'btn-danger' : mode==0, 'btn-warning' : mode==1}" data-style="zoom-out" data-spinner-size="32"><span class="ladda-label"><span ng-show="mode == 0">Opret karantæne</span><span ng-show="mode == 1">Slet karantæne</span></span></button>
+                    <button class="btn btn-default" data-dismiss="modal" ng-disabled="working">Annuller</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

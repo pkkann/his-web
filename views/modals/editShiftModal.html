@@ -1,0 +1,77 @@
+<div id="editshiftmodal" class="modal fade" ng-controller="EditShiftController as esCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form name="form" class="form-horizontal" novalidate>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="reset()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-pencil"></span> Rediger vagt</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <legend>Vælg mindst 2 høner til vagten</legend>
+
+                    <div class="form-group">
+                        <label class="col-lg-0 control-label"></label>
+                        <div class="col-lg-5">
+                            <label class="control-label">Alle høner</label>
+                        </div>
+                        <div class="col-lg-2">
+                            
+                        </div>
+                        <div class="col-lg-5">
+                            <label class="control-label">Høner på vagten</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-0 control-label"></label>
+                        <div class="col-lg-5">
+                            <input class="form-control" ng-model="allUsers.searchText" placeholder="Søg..." ng-disabled="working">
+                        </div>
+                        <div class="col-lg-2">
+                            <center><a href class="btn btn-default" ng-class="{'disabled' : !allUsers.selected}" ng-click="addUser()" ng-disabled="working"><span class="glyphicon glyphicon-chevron-right"></span></a></center>
+                        </div>
+                        <div class="col-lg-5">
+                            <input class="form-control" ng-model="addedUsers.searchText" placeholder="Søg..." ng-disabled="working">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-0 control-label"></label>
+                        <div class="col-lg-5">
+                            <select size="3" class="form-control" ng-model="allUsers.selected" ng-options="user.name for user in allUsers | filter: allUsers.searchText | orderBy: predicate:reverse" ng-disabled="working">
+                                <option style="display:none" value=""></option>
+                                <option ng-show="allUsers.loading">Henter...</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <center><a href class="btn btn-default" ng-class="{'disabled' : !addedUsers.selected}" ng-click="removeUser()" ng-disabled="working"><span class="glyphicon glyphicon-chevron-left"></span></a></center>
+                        </div>
+                        <div class="col-lg-5">
+                            <select size="3" class="form-control" ng-model="addedUsers.selected" ng-options="user.name for user in addedUsers | filter: addedUsers.searchText | orderBy: predicate:reverse" ng-disabled="working">
+                                <option style="display:none" value=""></option>
+                                <option ng-show="addedUsers.loading">Henter...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <legend>Vælg bar ansvarlig</legend>
+                    <select class="form-control" ng-model="addedUsers.leader" ng-options="user.name for user in addedUsers" ng-disabled="working">
+                        <option value="">Vælg</option>
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button id="saveButton" type="button" class="btn btn-warning ladda-button" data-style="zoom-out" data-spinner-size="32" ng-click="save()" ng-class="{'disabled' : addedUsers.length < 2 || !addedUsers.leader}"><span class="ladda-label">Gem</span></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="reset()" ng-disabled="working">Annuller</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

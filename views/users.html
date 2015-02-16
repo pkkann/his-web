@@ -1,0 +1,68 @@
+<div class="container-fluid">
+	<div class="panel panel-default">
+		
+		<div class="panel-heading">
+			<div class="navbar-form">
+				<a class="btn btn-default" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#createusermodal"><span class="glyphicon glyphicon-file"></span> Ny</a>
+				<input ng-model="searchText" size="40" class="form-control" type="text" placeholder="Søg">
+				<div class="pull-right">
+					<label class="control-label"><h5>Total: {{users.length}}</h5></label>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Navn</th>
+						<th>Brugernavn</th>
+						<th>E-mail</th>
+						<th>Telefon</th>
+						<th>Administrator</th>
+						<th>Oprettet</th>
+						<th>På vagt</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in users | filter: searchText | orderBy: predicate:reverse">
+						<td>{{user.name}}</td>
+						<td>{{user.username}}</td>
+						<td>{{user.email}}</td>
+						<td>{{user.phone}}</td>
+						<td>{{user.administrator | true_false}}</td>
+						<td>{{user.createdate}}</td>
+						<td>
+							<span ng-init="OS = onShift(user)"></span>
+							<span ng-init="IS = isSelf(user)"></span>
+							{{OS | true_false}}
+						</td>
+						<td style="text-align: right">
+							<div class="btn-group">
+								<button title="Skift adgangskode" class="btn btn-warning btn-sm" ng-click="changePassword.setUser(user); changePassword.setLoadMethod(load); changePassword.setAdmin(true)" data-toggle="modal" data-target="#changepasswordmodal" ng-disabled="!IS"><span class="glyphicon glyphicon-lock"></span></button>
+								<button title="Rediger" class="btn btn-warning btn-sm" ng-click="editUser.setUser(user); editUser.setLoadMethod(load)" data-toggle="modal" data-target="#editusermodal" ng-disabled="!IS"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button title="Slet" class="btn btn-danger btn-sm" ng-click="deleteUser.setUser(user); deleteUser.setLoadMethod(load)" data-toggle="modal" data-target="#deleteusermodal" ng-disabled="!IS || OS"><span class="glyphicon glyphicon-trash"></span></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<span ng-show="working">
+				<center>
+				    <label class="control-label"><h3>Henter...</h3></label>
+				    <div class="progress" style="width: 300px">
+				      <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				      </div>
+				    </div>
+				</center>
+			</span>
+			<p><center ng-show="users.length < 1 && !working"><h3>Der er ingen brugere</h3></center></p>
+		</div>
+
+	</div>
+</div>
+
+<span ng-include="'views/modals/editusermodal.html'"></span>
+<span ng-include="'views/modals/changepasswordmodal.html'"></span>
+<span ng-include="'views/modals/deleteusermodal.html'"></span>
+<createusermodal data-ng-create-extra-action="load()" users="users"></createusermodal>
